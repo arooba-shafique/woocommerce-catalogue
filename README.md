@@ -27,7 +27,7 @@ A digital B2B product catalogue website for **Core Sportswears** — a wholesale
 | Fonts | Google Fonts (Poppins, Open Sans) |
 | Icons | Font Awesome 6.5.1 |
 | Data Source | WooCommerce Store API v1 |
-| Deployment | Render.com, Vercel |
+| Deployment | Vercel |
 
 ## Project Structure
 
@@ -47,7 +47,6 @@ woocommerce-catalogue/
 │   └── img-proxy.js                   # Image proxy (CORS bypass)
 ├── lib/                               # Shared workspace libraries (Replit monorepo)
 ├── scripts/                           # Utility scripts
-├── render.yaml                        # Render.com deployment config
 ├── vercel.json                        # Vercel deployment config
 └── replit.md                          # Replit workspace docs
 ```
@@ -91,19 +90,6 @@ pnpm --filter @workspace/api-server run dev
 
 ## Deployment
 
-### Render.com
-
-Configured via `render.yaml`:
-- Build: `npm install`
-- Start: `node server.js`
-- Health check: `/healthz`
-
-### Vercel
-
 Configured via `vercel.json`:
 - Static files from `public/`
 - Serverless functions in `api/`
-
-## License
-
-ISC
