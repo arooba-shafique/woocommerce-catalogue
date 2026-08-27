@@ -21,7 +21,7 @@ A digital B2B product catalogue website for **Core Sportswears** — a wholesale
 
 | Layer | Technology |
 |-------|-----------|
-| Server | Node.js, Express.js |
+| Server | Node.js, Express.js, ES Modules |
 | Frontend | Vanilla HTML/CSS/JS, jQuery, Turn.js 3 |
 | PDF Generation | html2canvas, jsPDF (client-side) |
 | Fonts | Google Fonts (Poppins, Open Sans) |
@@ -33,17 +33,23 @@ A digital B2B product catalogue website for **Core Sportswears** — a wholesale
 
 ```
 woocommerce-catalogue/
-├── server.js                 # Express server (production entry point)
-├── public/                   # Static frontend
-│   ├── index.html            # Catalogue landing page
-│   ├── flipbook-viewer.html  # Interactive flipbook viewer
-│   └── *.png, *.jfif         # Category images, assets
-├── api/                      # Vercel serverless functions
-│   ├── wc.js                 # WooCommerce API proxy
-│   └── img-proxy.js          # Image proxy (CORS bypass)
-├── render.yaml               # Render.com deployment config
-├── vercel.json               # Vercel deployment config
-└── replit.md                 # Replit workspace docs
+├── server.js                          # Express server (production entry point)
+├── public/                            # Static frontend (used by Vercel)
+│   ├── index.html                     # Catalogue landing page
+│   ├── flipbook-viewer.html           # Interactive flipbook viewer
+│   └── *.png, *.jfif                  # Category images, assets
+├── artifacts/
+│   └── static-site/                   # Alternate static site (used by Express)
+│       ├── index.html                 # Landing page (served at / by server.js)
+│       └── public/                    # Static assets (flipbook-viewer, favicon, etc.)
+├── api/                               # Vercel serverless functions
+│   ├── wc.js                          # WooCommerce API proxy
+│   └── img-proxy.js                   # Image proxy (CORS bypass)
+├── lib/                               # Shared workspace libraries (Replit monorepo)
+├── scripts/                           # Utility scripts
+├── render.yaml                        # Render.com deployment config
+├── vercel.json                        # Vercel deployment config
+└── replit.md                          # Replit workspace docs
 ```
 
 ## Getting Started
@@ -54,16 +60,17 @@ woocommerce-catalogue/
 
 ### Run Locally
 
+The project has no root `package.json`. Install dependencies manually:
+
 ```bash
 git clone https://github.com/arooba-shafique/woocommerce-catalogue.git
 cd woocommerce-catalogue
-npm install
+npm init -y
+npm install express cors
 node server.js
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
-No environment variables are required — the server works out of the box.
 
 ### Run with pnpm (Full Workspace)
 
