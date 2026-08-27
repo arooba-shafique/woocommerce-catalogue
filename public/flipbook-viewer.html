@@ -306,11 +306,9 @@ body::before{
 <script>
 const CATEGORIES = [
   {code:"CAT-01",name:"Ski & Snow Wear",desc:"Jackets, pants, base layers, insulated outerwear & winter accessories.",slug:"ski-snow-wear",color:"#2f6690",totalPages:6},
-  {code:"CAT-02",name:"Streetwear",desc:"Hoodies, tees, flannel shirts, jackets, joggers & fashion streetwear.",slug:"custom-streetwear",color:"#ff4b2b",totalPages:6},
-  {code:"CAT-03",name:"Sportswear",desc:"Basketball, soccer, football, rugby, cricket, cycling & fitness teamwear.",slug:"custom-sportswear",color:"#1f8a5b",totalPages:4},
-  {code:"CAT-04",name:"Bags",desc:"Duffel bags, sports backpacks, fanny bags & tote bags.",slug:"custom-bags",color:"#8a5cf6",totalPages:4},
-  {code:"CAT-05",name:"Headwear & Accessories",desc:"Caps, beanies, patches, sleeves, socks & custom trims.",slug:"sports-accessories",color:"#d1a13d",totalPages:4},
-  {code:"CAT-06",name:"Customization Options",desc:"Embroidery, printing, rhinestone, labels, patches, packaging & design services.",slug:"design-customization",color:"#e91e63",totalPages:4},
+  {code:"CAT-02",name:"Streetwear",desc:"Hoodies, tees, jackets, joggers, headwear, accessories & fashion streetwear.",slug:"custom-streetwear",color:"#ff4b2b",totalPages:6},
+  {code:"CAT-03",name:"Sportswear",desc:"Basketball, soccer, football, rugby, baseball, hockey, running, bags, headwear & teamwear.",slug:"custom-sportswear",color:"#1f8a5b",totalPages:4},
+  {code:"CAT-04",name:"Customization Options",desc:"Embroidery, printing, rhinestone, labels, patches, packaging & design services.",slug:"design-customization",color:"#e91e63",totalPages:4},
 ];
 
 const FALLBACK_PRODUCTS = {
@@ -334,30 +332,24 @@ const FALLBACK_PRODUCTS = {
     {img:'https://coresportswears.com/wp-content/uploads/2026/05/cotton-stripe-stitching-front.webp',name:'Stripe Stitched Cotton T-Shirt',desc:'Color stripe stitching detail on front.',sku:'',subcat:'T-Shirts'},
     {img:'https://coresportswears.com/wp-content/uploads/2026/03/regular-fit-asid-washed-cotton-shirt-front.webp',name:'Acid Washed Regular Fit Tee',desc:'Acid washed finish for a vintage look.',sku:'',subcat:'T-Shirts'},
     {img:'https://coresportswears.com/wp-content/uploads/2026/02/bricks-shirt-front-1.webp',name:'Graphic Printed T-Shirt',desc:'Custom graphic print on premium tee.',sku:'',subcat:'T-Shirts'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/Rhine-stone-drop-shoulder-tshirt-1.webp',name:'Drop Shoulder Rhinestone T-Shirt',desc:'Drop shoulder cut with rhinestone detailing.',sku:'',subcat:'T-Shirts'}
+    {img:'https://coresportswears.com/wp-content/uploads/2026/05/Rhine-stone-drop-shoulder-tshirt-1.webp',name:'Drop Shoulder Rhinestone T-Shirt',desc:'Drop shoulder cut with rhinestone detailing.',sku:'',subcat:'T-Shirts'},
+    {img:'https://coresportswears.com/wp-content/uploads/2025/11/Flat-Embroidery.jpg',name:'Custom Caps & Hats',desc:'Snapback, dad hats, trucker caps.',sku:'',subcat:'Street Headwear'},
+    {img:'https://coresportswears.com/wp-content/uploads/2025/11/3D-Embroidery.jpg',name:'Beanies & Winter Hats',desc:'Knitted, cuffed, slouchy, fleece beanies.',sku:'',subcat:'Street Headwear'},
+    {img:'https://coresportswears.com/wp-content/uploads/2025/11/Chenille-Embroidery.jpg',name:'Gloves, Scarves & Wraps',desc:'Touchscreen gloves, neck gaiters, headbands.',sku:'',subcat:'Streetwear Accessories'},
+    {img:'https://coresportswears.com/wp-content/uploads/2025/11/sequin-embroidery.jpg',name:'Patches & Badges',desc:'PVC, rubber, embroidered, leather patches.',sku:'',subcat:'Streetwear Accessories'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/04/streetwear_1125x840.webp',name:'Fanny Packs & Belt Bags',desc:'Trendy waist packs, custom prints.',sku:'',subcat:'Streetwear Accessories'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/04/streetwear_1125x840.webp',name:'Tote & Shopping Bags',desc:'Canvas, cotton, polyester totes.',sku:'',subcat:'Streetwear Accessories'}
   ],
   "CAT-03":[
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/core_jacket_converted.webp',name:'Basketball Uniforms',desc:'Custom reversible jerseys, shorts, compression.',sku:'',subcat:'Teamwear'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/sublimation-printing.webp',name:'Soccer Uniforms',desc:'Custom sublimation jerseys, shorts, socks.',sku:'',subcat:'Teamwear'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/screen_printing_collage.webp',name:'Rugby & Football',desc:'Durable jerseys, pants, and training gear.',sku:'',subcat:'Teamwear'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/core_reflective_1000x1000.webp',name:'Baseball & Cricket',desc:'Custom jerseys, sublimation, embroidered logos.',sku:'',subcat:'Teamwear'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/core_logo.webp',name:'Cycling & Fitness',desc:'Compression tops, jerseys, gym shorts, leggings.',sku:'',subcat:'Fitness'}
+    {img:'https://coresportswears.com/wp-content/uploads/2026/05/core_jacket_converted.webp',name:'Basketball Uniforms',desc:'Custom reversible jerseys, shorts, compression.',sku:'',subcat:'Basketball'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/05/sublimation-printing.webp',name:'Soccer Uniforms',desc:'Custom sublimation jerseys, shorts, socks.',sku:'',subcat:'Soccer'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/05/screen_printing_collage.webp',name:'Rugby & Football',desc:'Durable jerseys, pants, and training gear.',sku:'',subcat:'Rugby'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/05/core_reflective_1000x1000.webp',name:'Baseball & Cricket',desc:'Custom jerseys, sublimation, embroidered logos.',sku:'',subcat:'Baseball'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/05/core_logo.webp',name:'Cycling & Fitness',desc:'Compression tops, jerseys, gym shorts, leggings.',sku:'',subcat:'Running & Fitness'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/06/core_bags_manufacturing.webp',name:'Duffel Bags',desc:'Large-capacity duffels for gym and travel.',sku:'',subcat:'Bags'},
+    {img:'https://coresportswears.com/wp-content/uploads/2026/06/core_bags_manufacturing-1.webp',name:'Sports Backpacks',desc:'Durable backpacks, multiple compartments.',sku:'',subcat:'Bags'}
   ],
   "CAT-04":[
-    {img:'https://coresportswears.com/wp-content/uploads/2026/06/core_bags_manufacturing.webp',name:'Duffel Bags',desc:'Large-capacity duffels for gym and travel.',sku:'',subcat:'Bags'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/06/core_bags_manufacturing-1.webp',name:'Sports Backpacks',desc:'Durable backpacks, multiple compartments.',sku:'',subcat:'Bags'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/04/streetwear_1125x840.webp',name:'Fanny Packs & Belt Bags',desc:'Trendy waist packs, custom prints.',sku:'',subcat:'Bags'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/04/streetwear_1125x840.webp',name:'Tote & Shopping Bags',desc:'Canvas, cotton, polyester totes.',sku:'',subcat:'Bags'}
-  ],
-  "CAT-05":[
-    {img:'https://coresportswears.com/wp-content/uploads/2025/11/Flat-Embroidery.jpg',name:'Custom Caps & Hats',desc:'Snapback, dad hats, trucker caps.',sku:'',subcat:'Headwear'},
-    {img:'https://coresportswears.com/wp-content/uploads/2025/11/3D-Embroidery.jpg',name:'Beanies & Winter Hats',desc:'Knitted, cuffed, slouchy, fleece beanies.',sku:'',subcat:'Headwear'},
-    {img:'https://coresportswears.com/wp-content/uploads/2025/11/Chenille-Embroidery.jpg',name:'Gloves, Scarves & Wraps',desc:'Touchscreen gloves, neck gaiters, headbands.',sku:'',subcat:'Accessories'},
-    {img:'https://coresportswears.com/wp-content/uploads/2025/11/sequin-embroidery.jpg',name:'Patches & Badges',desc:'PVC, rubber, embroidered, leather patches.',sku:'',subcat:'Accessories'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/custom_rubber_patch.webp',name:'Custom Rubber Patches',desc:'3D rubber logos, PVC patches.',sku:'',subcat:'Accessories'},
-    {img:'https://coresportswears.com/wp-content/uploads/2026/05/CORE_woven_label.webp',name:'Woven Labels & Tags',desc:'Custom woven labels, satin tags, neck tape.',sku:'',subcat:'Accessories'}
-  ],
-  "CAT-06":[
     {img:'https://coresportswears.com/wp-content/uploads/2025/11/Flat-Embroidery.jpg',name:'Custom Embroidered Heat Transfer Patch',desc:'Embroidered patches, heat transfer, iron-on, sew-on.',sku:'DS-EMB-02',subcat:'Custom Embroidery Options'},
     {img:'https://coresportswears.com/wp-content/uploads/2025/11/3D-Embroidery.jpg',name:'3D Embroidery',desc:'Premium 3D embroidery for apparel branding.',sku:'DS-EMB-04',subcat:'Custom Embroidery Options'},
     {img:'https://coresportswears.com/wp-content/uploads/2025/11/Chenille-Embroidery.jpg',name:'Chenille Embroidery',desc:'Soft chenille embroidery for patches and logos.',sku:'DS-EMB-05',subcat:'Custom Embroidery Options'},
@@ -403,18 +395,6 @@ const CATEGORY_IMAGES = {
     { img: '/sportswear-faqs.png', bg: '#ffffff', isCover: false }
   ],
   "CAT-04": [
-    { img: '/bags-cover.png', bg: '#1a1a2e', isCover: true },
-    { img: '/bags-about.png', bg: '#ffffff', isCover: false },
-    { img: '/bags-how-to-work.png', bg: '#ffffff', isCover: false },
-    { img: '/bags-faqs.png', bg: '#ffffff', isCover: false }
-  ],
-  "CAT-05": [
-    { img: '/headwear-cover.png', bg: '#1a1a2e', isCover: true },
-    { img: '/headwear-about.png', bg: '#ffffff', isCover: false },
-    { img: '/headwear-how-to-work.png', bg: '#ffffff', isCover: false },
-    { img: '/headwear-faqs.png', bg: '#ffffff', isCover: false }
-  ],
-  "CAT-06": [
     { img: '/CORE_Sportswears_Customization_Options_Catalog_4Pages-1.png', bg: '#1a1a2e', isCover: true },
     { img: '/CORE_Sportswears_Customization_Options_Catalog_4Pages-2.png', bg: '#ffffff', isCover: false },
     { img: '/CORE_Sportswears_Customization_Options_Catalog_4Pages-3.png', bg: '#ffffff', isCover: false },
@@ -462,16 +442,48 @@ async function fetchAllProducts() {
     "ski-snowboarding-jackets":"CAT-01","custom-ski-suits":"CAT-01","hoodies":"CAT-01",
     "gloves-mittens":"CAT-01","ski-snowboard-accessories":"CAT-01",
     "ski-balaclava-neck-warmers":"CAT-01","fabrics-for-ski-snow-wear":"CAT-01",
+    "base-layer-jumpsuits":"CAT-01","base-layer-bottoms-leggings":"CAT-01",
+    "compression-base-layers":"CAT-01","base-layer-sets":"CAT-01",
     "custom-streetwear":"CAT-02","custom-t-shirts":"CAT-02","basic-t-shirts":"CAT-02",
     "oversized-streetwear-t-shirts":"CAT-02","washed-dyed-t-shirts":"CAT-02",
     "graphic-printed-t-shirts":"CAT-02","streetwear-fabrics":"CAT-02",
+    "custom-shorts":"CAT-02","beach-shorts":"CAT-02","cargo-shorts":"CAT-02","sweat-shorts":"CAT-02",
+    "custom-tracksuits-co-ord-sets":"CAT-02",
+    "custom-jackets":"CAT-02","bomber-jackets":"CAT-02","soft-shell-jackets":"CAT-02",
+    "custom-puffer-down-jackets":"CAT-02","varsity-jackets":"CAT-02",
+    "hoodies-sweatshirts":"CAT-02","pullover-hoodies":"CAT-02","zipper-hoodies":"CAT-02",
+    "sweat-pants-bottoms":"CAT-02","sweat-shirts":"CAT-02",
+    "head-wears":"CAT-02","custom-snapback-caps":"CAT-02","trucker-mesh-caps":"CAT-02",
+    "5-panel-fashion-caps":"CAT-02","outdoor-bucket-hats":"CAT-02",
+    "sports-accessories":"CAT-02","tote-bags-shopping-bags":"CAT-02","fanny-bags":"CAT-02",
+    "custom-patches-badges":"CAT-02","polo-henley-shirts":"CAT-02",
+    "premium-fabric-t-shirts":"CAT-02","special-design-t-shirts":"CAT-02",
+    "tank-tops-singlets":"CAT-02","flannel-button-up-shirts":"CAT-02",
     "custom-sportswear":"CAT-03","custom-sportswear-fabrics":"CAT-03",
-    "custom-bags":"CAT-04",
-    "sports-accessories":"CAT-05","beanies-winter-headwear":"CAT-05",
-    "design-customization":"CAT-06","custom-embroidery":"CAT-06",
-    "printings-options":"CAT-06","custom-rhinestone":"CAT-06",
-    "labels-tags":"CAT-06","pvc-rubber-logos":"CAT-06",
-    "poly-bags":"CAT-06","patternmaking":"CAT-06",
+    "basketball":"CAT-03","custom-basketball-jerseys":"CAT-03","basketball-shorts":"CAT-03",
+    "basketball-uniform-sets":"CAT-03","basketball-training-compression-wear":"CAT-03",
+    "soccer":"CAT-03","custom-soccer-jerseys":"CAT-03","soccer-shorts":"CAT-03",
+    "soccer-uniform-sets":"CAT-03","soccer-goalkeeper-wear":"CAT-03","soccer-training-wear":"CAT-03",
+    "american-football":"CAT-03","american-football-jerseys":"CAT-03",
+    "american-football-pants":"CAT-03","american-football-uniform-sets":"CAT-03",
+    "football-compression-wear":"CAT-03",
+    "rugby-wear":"CAT-03","rugby-jerseys-shirts":"CAT-03","rugby-shorts":"CAT-03",
+    "rugby-uniform-sets":"CAT-03","rugby-training-protection-wear":"CAT-03",
+    "baseball":"CAT-03","baseball-jerseys":"CAT-03","baseball-pants":"CAT-03",
+    "baseball-uniform-sets":"CAT-03",
+    "ice-hockey-uniforms":"CAT-03","ice-hockey-jerseys":"CAT-03",
+    "ice-hockey-short":"CAT-03","ice-hockey-uniform-sets":"CAT-03",
+    "running-wear":"CAT-03","running-jersey":"CAT-03","running-shorts":"CAT-03",
+    "running-uniform-set":"CAT-03",
+    "custom-bags":"CAT-03","duffel-bags":"CAT-03","sports-backpack":"CAT-03",
+    "sports-headwear":"CAT-03","baseball-sports-caps":"CAT-03","visor-caps":"CAT-03",
+    "sports-headbands":"CAT-03",
+    "sports-accessories-custom-sportswear":"CAT-03","compression-sleeves-warmers":"CAT-03",
+    "custom-flags":"CAT-03","custom-socks":"CAT-03","custom-sports-towels":"CAT-03",
+    "design-customization":"CAT-04","custom-embroidery":"CAT-04",
+    "printings-options":"CAT-04","custom-rhinestone":"CAT-04",
+    "labels-tags":"CAT-04","pvc-rubber-logos":"CAT-04",
+    "poly-bags":"CAT-04","patternmaking":"CAT-04","leather-patches":"CAT-04",
   };
 
   let categoriesMap = {};
