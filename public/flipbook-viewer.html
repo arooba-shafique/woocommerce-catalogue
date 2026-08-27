@@ -569,9 +569,16 @@ function buildContentPage(catName, color, pageNum, totalPages, lines, pageW, pag
   const isSmall = pageW < 500;
   const pad = isSmall ? 6 : 14;
   const titleSize = isSmall ? 14 : 22;
-  const subcatSize = isSmall ? 7 : 10;
 
-  const title = isContinued ? 'Contents (continued)' : 'Contents';
+  // Dynamically size font to fit all lines on one page
+  const maxLines = lines.length;
+  let subcatSize;
+  if (maxLines <= 8) subcatSize = isSmall ? 8 : 11;
+  else if (maxLines <= 12) subcatSize = isSmall ? 7 : 10;
+  else if (maxLines <= 18) subcatSize = isSmall ? 6 : 9;
+  else subcatSize = isSmall ? 5 : 8;
+
+  const linePad = maxLines > 14 ? (isSmall ? 3 : 5) : (isSmall ? 5 : 8);
 
   // Split lines into two columns
   const mid = Math.ceil(lines.length / 2);
@@ -580,7 +587,7 @@ function buildContentPage(catName, color, pageNum, totalPages, lines, pageW, pag
 
   function buildColumn(items) {
     return items.map(line => `
-      <div style="display:flex;align-items:center;padding:${isSmall ? 5 : 8}px 0;">
+      <div style="display:flex;align-items:center;padding:${linePad}px 0;">
         <div style="font-size:${subcatSize}px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:0.5px;">${line.name}</div>
         <div style="flex:1;border-bottom:1px dotted #999;margin:0 ${isSmall ? 4 : 8}px;min-width:20px;"></div>
         <div style="font-size:${subcatSize}px;font-weight:600;color:#222;">${line.page}</div>
@@ -590,7 +597,7 @@ function buildContentPage(catName, color, pageNum, totalPages, lines, pageW, pag
 
   return `<div class="page-inner" style="display:flex;flex-direction:column;height:100%;width:100%;background:#f5f5f5;position:relative;overflow:hidden;">
     <div style="flex:1;display:flex;flex-direction:column;padding:${pad * 2}px ${pad * 2}px ${pad}px;justify-content:center;">
-      <div style="text-align:center;margin-bottom:${isSmall ? 12 : 24}px;">
+      <div style="text-align:center;margin-bottom:${isSmall ? 8 : 16}px;">
         <h2 style="font-size:${titleSize}px;font-weight:700;color:#222;margin:0;letter-spacing:1px;">Contents</h2>
       </div>
       <div style="display:flex;gap:${isSmall ? 8 : 20}px;flex:1;min-height:0;">
@@ -614,26 +621,33 @@ function buildProductPage(catName, color, pageNum, totalPages, items, subcatName
   const pad = isSmall ? 6 : 12;
   const headerSize = isSmall ? 8 : 12;
   const catSize = isSmall ? 7 : 10;
-  const ifnt = isSmall ? 9 : 13;
+  const ifnt = isSmall ? 7 : 9;
   const subcatSize = isSmall ? 7 : 9;
-  const item = items[0];
+  const rows = [];
+  for (let r = 0; r < items.length; r += 2) {
+    rows.push(items.slice(r, r + 2));
+  }
   return `<div class="page-inner" style="display:flex;flex-direction:column;height:100%;position:relative;">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:${pad}px ${pad}px ${pad/2}px;border-bottom:1px solid #ddd;flex-shrink:0;">
       <div style="font-size:${headerSize}px;font-weight:700;color:#333;">CORE <span style="color:${color};">SPORTS</span>WEARS</div>
       <div style="font-size:${catSize}px;color:#666;">${catName}</div>
     </div>
     ${subcatName ? `<div style="padding:${isSmall?2:4}px ${pad}px;background:${color};color:#fff;font-size:${subcatSize}px;font-weight:600;letter-spacing:0.5px;flex-shrink:0;">${subcatName}</div>` : ''}
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:${pad * 2}px;overflow:hidden;min-height:0;">
-      ${item ? `
-        <div style="display:flex;flex-direction:column;align-items:center;width:100%;max-height:100%;overflow:hidden;">
-          <div style="flex:1 1 0;min-height:0;width:100%;max-width:80%;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-            <img src="${item.img}" alt="${item.name}" style="max-width:100%;max-height:100%;object-fit:contain;" onerror="this.style.display='none'">
-          </div>
-          <div style="font-size:${ifnt}px;font-weight:600;color:#333;text-align:center;line-height:1.3;padding:${isSmall?6:10}px 0 0;flex-shrink:0;">${item.name}</div>
-          ${item.desc ? `<div style="font-size:${Math.max(ifnt - 2, 7)}px;color:#666;text-align:center;line-height:1.4;padding:${isSmall?2:4}px 0 0;flex-shrink:0;">${item.desc}</div>` : ''}
-          ${item.sku ? `<div style="font-size:${Math.max(ifnt - 3, 6)}px;color:#999;text-align:center;line-height:1.2;padding:${isSmall?1:2}px 0 0;flex-shrink:0;">SKU: ${item.sku}</div>` : ''}
+    <div style="flex:1;display:flex;flex-direction:column;gap:${isSmall?4:8}px;padding:${pad}px;overflow:hidden;min-height:0;">
+      ${rows.length ? rows.map(row => `
+        <div style="display:flex;gap:${isSmall?4:8}px;flex:1;min-height:0;">
+          ${row.map(item => `
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;background:#fff;border:1px solid #eee;border-radius:3px;padding:${isSmall?2:4}px;overflow:hidden;min-height:0;">
+              <div style="flex:1 1 0;min-height:0;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+                <img src="${item.img}" alt="${item.name}" style="max-width:100%;max-height:100%;object-fit:contain;" onerror="this.style.display='none'">
+              </div>
+              <div style="font-size:${ifnt}px;font-weight:600;color:#333;text-align:center;line-height:1.2;padding:2px 0 0;flex-shrink:0;">${item.name}</div>
+              ${item.sku ? `<div style="font-size:${Math.max(ifnt - 2, 6)}px;color:#888;text-align:center;line-height:1.2;padding:0;flex-shrink:0;">SKU: ${item.sku}</div>` : ''}
+            </div>
+          `).join('')}
+          ${row.length < 2 ? '<div style="flex:1;"></div>' : ''}
         </div>
-      ` : '<div style="color:#ccc;font-size:12px;text-align:center;">Products coming soon</div>'}
+      `).join('') : '<div style="color:#ccc;font-size:12px;text-align:center;padding-top:40px;">Products coming soon</div>'}
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:${pad/2}px ${pad}px;border-top:1px solid #ddd;flex-shrink:0;">
       <div style="font-size:${isSmall?6:8}px;color:#999;">coresportswears.com</div>
@@ -689,25 +703,11 @@ function groupBySubcat(products) {
 function calcTotalPages(code){
   const products = PRODUCTS[code] || [];
   const groups = groupBySubcat(products);
-  const itemsPerPage = 1;
+  const itemsPerPage = 4;
   let productPages = 0;
   groups.forEach(g => { productPages += Math.ceil(g.products.length / itemsPerPage); });
   productPages = Math.max(productPages, 1);
-
-  // Count TOC pages using atomic subcategory units
-  const tocGroups = groups.map(g => ({ count: g.products.length }));
-  let tocPages = 0;
-  let gIdx = 0;
-  while (gIdx < tocGroups.length) {
-    tocPages++;
-    let linesUsed = 1 + tocGroups[gIdx].count;
-    gIdx++;
-    while (gIdx < tocGroups.length && linesUsed + 1 + tocGroups[gIdx].count <= 18) {
-      linesUsed += 1 + tocGroups[gIdx].count;
-      gIdx++;
-    }
-  }
-  if (tocGroups.length === 0) tocPages = 0;
+  const tocPages = groups.length > 0 ? 1 : 0;
 
   return tocPages + productPages;
 }
@@ -717,8 +717,7 @@ function getPages(c){
   const products = PRODUCTS[c.code] || [];
   const groups = groupBySubcat(products);
   const dims = getFlipDimensions();
-  const itemsPerPage = 1;
-  const tocPerPage = 18;
+  const itemsPerPage = 4;
   const categoryImages = CATEGORY_IMAGES[c.code] || CATEGORY_IMAGES["CAT-01"];
   const imagePageCount = categoryImages.length;
 
@@ -734,7 +733,7 @@ function getPages(c){
   let productPages = 0;
   groups.forEach(g => { productPages += Math.ceil(g.products.length / itemsPerPage); });
   productPages = Math.max(productPages, 1);
-  const tocPages = groups.length > 0 ? Math.ceil(groups.length / tocPerPage) : 0;
+  const tocPages = groups.length > 0 ? 1 : 0;
   const pageOffset = tocPages + imagePageCount; // image pages + TOC pages before first product
   const totalPages = tocPages + productPages + imagePageCount; // all pages
 
@@ -756,21 +755,13 @@ function getPages(c){
     });
   });
 
-  // --- Contents pages (subcategories only) ---
-  let tocPageNum = 1;
-  let lineIdx = 0;
-  while (lineIdx < tocLines.length) {
-    const linesForPage = [];
-    while (lineIdx < tocLines.length && linesForPage.length < tocPerPage) {
-      linesForPage.push(tocLines[lineIdx]);
-      lineIdx++;
-    }
-    const absPageNum = imagePageCount + tocPageNum;
+  // --- Contents page (always 1 page) ---
+  if (tocLines.length > 0) {
+    const absPageNum = imagePageCount + 1;
     pages.push({
-      html: buildContentPage(c.name, c.color, absPageNum, totalPages, linesForPage, dims.width, dims.height, tocPageNum > 1),
+      html: buildContentPage(c.name, c.color, absPageNum, totalPages, tocLines, dims.width, dims.height, false),
       bg: '#fff', color: '#333', subcat: null
     });
-    tocPageNum++;
   }
 
   // --- Product pages ---
