@@ -486,6 +486,14 @@ async function fetchAllProducts() {
     "poly-bags":"CAT-04","patternmaking":"CAT-04","leather-patches":"CAT-04",
   };
 
+  const slugPriority = {
+    "sports-headwear":0,"baseball-sports-caps":0,"visor-caps":0,"sports-headbands":0,
+    "head-wears":1,"custom-snapback-caps":1,"trucker-mesh-caps":1,
+    "5-panel-fashion-caps":1,"outdoor-bucket-hats":1,
+    "tote-bags-shopping-bags":0,"fanny-bags":0,
+    "custom-bags":1,"duffel-bags":1,"sports-backpack":1,
+  };
+
   let categoriesMap = {};
   try {
     let catPage = 1;
@@ -539,15 +547,16 @@ async function fetchAllProducts() {
   }
 
   all.forEach(p => {
-    const matched = new Set();
+    const matched = [];
     (p.categories || []).forEach(cat => {
       const directCode = slugToCode[cat.slug];
-      if (directCode) { matched.add(directCode); return; }
+      if (directCode) { matched.push({slug:cat.slug, code:directCode}); return; }
       const walked = resolveCatCode(cat.id);
-      if (walked) matched.add(walked);
+      if (walked) matched.push({slug:cat.slug, code:walked});
     });
-    if (matched.size) {
-      const code = [...matched][0];
+    if (matched.length) {
+      matched.sort((a, b) => (slugPriority[a.slug] ?? 5) - (slugPriority[b.slug] ?? 5));
+      const code = matched[0].code;
       const name = p.name || '';
       const desc = p.short_description ? p.short_description.replace(/<[^>]*>/g, '').trim() : '';
       const img = (p.images && p.images[0]) ? p.images[0].src : '';
@@ -1028,3 +1037,4 @@ document.title = `${cat.name} — Flipbook Viewer | Core Sportswears`;
 </script>
 </body>
 </html>
+
